@@ -3,8 +3,12 @@ package org.eclipse.firstspringmvc.controller;
 import javax.validation.Valid;
 
 import org.eclipse.firstspringmvc.dao.PersonneRepository;
+import org.eclipse.firstspringmvc.dao.UserRepository;
 import org.eclipse.firstspringmvc.model.Personne;
+import org.eclipse.firstspringmvc.model.User;
+import org.eclipse.firstspringmvc.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,11 +21,19 @@ public class FormController {
 	
 	@Autowired
 	private PersonneRepository personneRepository;
+	@Autowired
+	private UserRepository userRepository;
 
 	@GetMapping("/personne")
 	public String personneForm(Model model) {
-	model.addAttribute("personne", new Personne());
-	return "personneForm";
+		model.addAttribute("personne", new Personne());
+
+		UserDetailsImpl connectedUser = (UserDetailsImpl)
+				SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		User user = userRepository.findByUserName(connectedUser.getUsername());
+		System.out.print(user); //récupère les paramètres de l'objet user qui s'est connecté
+		return "personneForm";
 	}
 	
 //	@PostMapping("/personne")

@@ -17,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
-@ComponentScan("org.eclipse.firstspringmvc.controller")
+@ComponentScan("org.eclipse.firstspringmvc.controller, org.eclipse.firstspringmvc.security")
 @EnableJpaRepositories("org.eclipse.firstspringmvc.dao")
 @EnableTransactionManagement
 public class ApplicationConfig {

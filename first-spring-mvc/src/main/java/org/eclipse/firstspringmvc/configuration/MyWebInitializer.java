@@ -17,7 +17,7 @@ public class MyWebInitializer extends AbstractAnnotationConfigDispatcherServletI
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
 		// TODO Auto-generated method stub
-		return new Class [] { ApplicationConfig.class, MvcConfig.class  };
+		return new Class [] { ApplicationConfig.class, MvcConfig.class, SecurityConfig.class };
 	}
 
 	@Override

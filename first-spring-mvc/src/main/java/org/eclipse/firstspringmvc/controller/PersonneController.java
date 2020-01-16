@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@Secured("ROLE_ADMIN")
 public class PersonneController {
 	@Autowired
 	private PersonneRepository personneRepository;
@@ -26,6 +29,7 @@ public class PersonneController {
 	return "addPerson";
 	}
 	@GetMapping(value = "/showAll")
+	@Secured("ROLE_USER")
 	public ModelAndView showAll() {
 	ArrayList <Personne> personnes =(ArrayList<Personne>) personneRepository.findAll();
 	ModelAndView mv = new ModelAndView();
@@ -54,6 +58,7 @@ public class PersonneController {
 	return mv;
 	}
 	@GetMapping(value = "/showAllSorted")
+	@PreAuthorize("hasRole('ROLE_USER') and hasRole('ROLE_ADMIN')")
 	public ModelAndView showAllSorted() {
 	List<Personne> personnes = personneRepository.findAll(Sort.by("nom").descending());
 	ModelAndView mv = new ModelAndView();
