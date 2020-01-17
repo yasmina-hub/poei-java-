@@ -24,5 +24,10 @@
 		<input type="hidden" name="${_csrf.parameterName}"
 			value="${_csrf.token}" />
 	</form>
+	<c:url var="logoutUrl" value="/logout"/>
+	<form action="${logoutUrl}" method="post">
+		<input type="submit" value="Deconnection" /> <input type="hidden"
+			name="${_csrf.parameterName}" value="${_csrf.token}" />
+	</form>
 </body>
 </html>
